@@ -1,5 +1,5 @@
 # Isaac Sim Benchmarking
-Using nvidia Isaac Sim to test robotics simulation and robotics ML training using cloud GPUs
+Using nvidia Isaac Sim and Isaac Lab to test robotics simulation and robotics ML training using cloud GPUs
 
 ## Setup 
 
@@ -38,64 +38,76 @@ Login Succeeded
 ```
 You can reuse your API key for future setups
 
-### Pull the Isaac Sim container
-Pull the Isaac Sim docker container
-```
-docker pull nvcr.io/nvidia/isaac-sim:4.0.0
-```
-
-### Launch Isaac Sim
-
-Clone this repo if you haven't done so:
+### Launch Isaac Lab Docker Container
+Clone the Isaac Lab repo if you haven't done so already:
 
 ```
-git clone https://github.com/LambdaLabsML/isaac-sim-benchmarking.git && \
+git clone https://github.com/isaac-sim/IsaacLab.git && \
 cd isaac-sim-benchmarking
 ```
+Launch the container in a detached state and enter it:
+```bash
+# Launch the container in detached mode
+# We don't pass an image extension arg, so it defaults to 'base'
+./docker/container.sh start
+# Enter the container
+# We pass 'base' explicitly, but if we hadn't it would default to 'base'
+./docker/container.sh enter base
+```
+To copy files from the base container to the host machine, you can use the following command:
+```bash
+# Copy the file /workspace/isaaclab/logs to the current directory
+docker cp isaac-lab-base:/workspace/isaaclab/logs .
+```
 
-Run the Isaac Sim container with an interactive Bash session
-```
-docker run --name isaac-sim --entrypoint bash -it --gpus all -e "ACCEPT_EULA=Y" --rm --network=host \
-    -e "PRIVACY_CONSENT=Y" \
-    -v ~/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache:rw \
-    -v ~/docker/isaac-sim/cache/ov:/root/.cache/ov:rw \
-    -v ~/docker/isaac-sim/cache/pip:/root/.cache/pip:rw \
-    -v ~/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache:rw \
-    -v ~/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache:rw \
-    -v ~/docker/isaac-sim/logs:/root/.nvidia-omniverse/logs:rw \
-    -v ~/docker/isaac-sim/data:/root/.local/share/ov/data:rw \
-    -v ~/docker/isaac-sim/documents:/root/Documents:rw \
-    -v $(pwd)/scripts:/workspace:rw \
-    -v $(pwd)/patch/nucleus.py:/isaac-sim/exts/omni.isaac.nucleus/omni/isaac/nucleus/nucleus.py:ro \
-    nvcr.io/nvidia/isaac-sim:4.0.0
-```
-Notice we patch the `nucleus.py` script with the update [here](https://forums.developer.nvidia.com/t/detected-a-blocking-function-this-will-cause-hitches-or-hangs-in-the-ui-please-switch-to-the-async-version/271191/12) to avoid `world.scene.add_default_ground_plane()` from causing a `blocking function`. 
+### Runing scripts 
+While in this state, there are two ways of running the simulation headlessly: with livestream, and without. 
 
-We also mount examples scripts in the `scripts` folder to `workspace` inside the container.
+#### No livestream:
+To run an isaac lab script headlessly without livestreaming the UI, append `--headless` or set the `HEADLESS` environment variable to 1. For example:
+```bash
+isaaclab -p source/standalone/tutorials/00_sim/log_time.py --headless
+# OR
+export HEADLESS=1
+isaaclab -p source/standalone/tutorials/00_sim/log_time.py
+```
+This will produce logs in the log file `/workspace/isaaclab/logs/docker_tutorial`, which can be retrieved by exiting the docker container, going to `IsaacLab/docker`, and running:
+```
+./container.sh copy
+```
+(see [isaac lab docs](https://isaac-sim.github.io/IsaacLab/source/deployment/run_docker_example.html#executing-the-script) for more info)
 
-The next step is to launch Isaac Sim in the background using:
+We can also use headless without livestreaming to train reinforcement learning models. For example:
+```bash
+# install python module (for skrl)
+./isaaclab.sh -i skrl
+# run script for training
+./isaaclab.sh -p source/standalone/workflows/skrl/train.py --task Isaac-Cartpole-v0 --headless
 ```
-./runheadless.webrtc.sh &
-```
-This should allow for streaming UI to a webRTC client but this is a WIP [(docs here)](https://docs.omniverse.nvidia.com/extensions/latest/ext_livestream/webrtc.html)
+When finished, this will add checkpoints of the best agents during training to `/workspace/isaaclab/logs/skrl/cartpole/<date-time>/` and save logs to Tensorboard.
+Again, more info can be found on the [official docs](https://isaac-sim.github.io/IsaacLab/source/setup/sample.html#reinforcement-learning).
 
-You should see the text `Isaac Sim Headless Native App is loaded.` when it is finished loading.
+#### Livestream:
+We can also stream the UI to an external client using the `--livestream` flag. The easiest way to do this is through the native Omniverse Streaming Client, but this is only supported on Windows and Linux ([see this tutorial for installing the launcher](https://docs.omniverse.nvidia.com/launcher/latest/installing_launcher.html) and [this tutorial for setting up the streaming client](https://docs.omniverse.nvidia.com/streaming-client/latest/user-manual.html#installation-and-usage)). Alternatively, it should be possible to use WebRTC to do livestreaming ([although there are some known issues with it](https://isaac-sim.github.io/IsaacLab/source/deployment/docker.html#webrtc-streaming))
 
-Finally, run an example script:
-```
-# bash /isaac-sim/python.sh /workspace/my_application.py
-```
-This will print any logs from the simulation that are in the python script. e.g.
+> [!IMPORTANT]  
+> For livestreaming to work, the GPU instance must have an RTX card.
 
+Once the livestream client is set up, we can run an isaac lab script with `--livestream 1` (or `--livestream 2` if using WebRTC):
 ```
-Cube's orientation is : [ 1.0000000e+00 -1.2853170e-06  5.4760726e-08  7.0710399e-08]
-Cube's linear velocity is : [ 3.7621916e-04 -7.0683210e-04 -9.7330332e-05]
-Cube position is : [-0.0004345   0.00036895  0.25074962]
-Cube's orientation is : [ 1.0000000e+00 -1.3024535e-06  2.0566535e-08  5.3247195e-08]
-Cube's linear velocity is : [ 3.7617341e-04 -7.0690154e-04 -9.7553268e-05]
-Cube position is : [-0.00043449  0.00036895  0.2507496 ]
-Cube's orientation is : [ 1.0000000e+00 -1.2903952e-06  7.4222413e-08  5.0700635e-08]
-Cube's linear velocity is : [ 3.7670622e-04 -7.0628989e-04 -9.7703909e-05]
-...
-[19.301s] Simulation App Shutting Down
+./isaaclab.sh -p source/standalone/demos/quadrupeds.py --livestream 1
 ```
+Alternatively, we can set the LIVESTREAM environment variable:
+```
+export LIVESTREAM=1
+./isaaclab.sh -p source/standalone/demos/quadrupeds.py
+```
+Once we see the message `Simulation App Startup Complete`, we can enter the IP of the hosting GPU instance into the streaming client and press `connect`. When loaded, we will see the simulation being run and rendered in real time.
+
+This can also be used to view the result of a machine learning model. For example, we can play the model we already trained with SKRL:
+```bash
+# run script for playing with 32 environments
+./isaaclab.sh -p source/standalone/workflows/skrl/play.py --task Isaac-Cartpole-v0 --num_envs 32 --checkpoint /workspace/isaaclab/logs/skrl/cartpole/<date-time>/checkpoints/best_agent.pt --livestream 1
+```
+Once connected to the simulation, we can view the best agent in the model we trained:
+![](images/cartpole.png)

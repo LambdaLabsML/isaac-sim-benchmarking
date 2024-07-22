@@ -43,7 +43,7 @@ Clone the Isaac Lab repo if you haven't done so already:
 
 ```
 git clone https://github.com/isaac-sim/IsaacLab.git && \
-cd isaac-sim-benchmarking
+cd IsaacLab
 ```
 Launch the container in a detached state and enter it:
 ```bash

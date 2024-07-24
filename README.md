@@ -70,9 +70,9 @@ isaaclab -p source/standalone/tutorials/00_sim/log_time.py --headless
 export HEADLESS=1
 isaaclab -p source/standalone/tutorials/00_sim/log_time.py
 ```
-This will produce logs in the log file `/workspace/isaaclab/logs/docker_tutorial`, which can be retrieved by exiting the docker container, going to `IsaacLab/docker`, and running:
+This will produce logs in the log file `/workspace/isaaclab/logs/docker_tutorial`, which can be retrieved by exiting the docker container, going to `IsaacLab`, and running:
 ```
-./container.sh copy
+./docker/container.sh copy
 ```
 (see [isaac lab docs](https://isaac-sim.github.io/IsaacLab/source/deployment/run_docker_example.html#executing-the-script) for more info)
 

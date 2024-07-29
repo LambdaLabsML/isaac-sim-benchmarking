@@ -5,8 +5,8 @@ Using nvidia Isaac Sim and Isaac Lab to test robotics simulation and robotics ML
 
 ### Remove sudo requirement for running docker
 ```
-export USERNAME=$(whoami)
-sudo usermod -aG docker $USERNAME
+export USERNAME=$(whoami) && \
+sudo usermod -aG docker $USERNAME && \
 newgrp docker
 ```
 ### Install the NVIDIA Container Toolkit
@@ -41,8 +41,8 @@ You can reuse your API key for future setups
 Clone the Isaac Lab repo if you haven't done so already:
 
 ```
-git clone https://github.com/isaac-sim/IsaacLab.git && \
-cd IsaacLab
+git clone https://github.com/RajitGhosh/IsaacLab-Fork.git && \
+cd IsaacLab-Fork
 ```
 Launch the container in a detached state and enter it:
 ```bash

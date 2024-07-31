@@ -154,10 +154,6 @@ To easily view the recorded video, exit the docker container and run the followi
 ```
 The logs will be added to `/isaaclab/docker/artifacts/logs/<library>/<task>/<date-time>` in the host terminal environment. The recorded videos are in the `videos` folder, and can be downloaded and viewed. If you see a `.json` file but not an `mp4`, try letting the video training or playback run longer before terminating.
 
-<video src="images/rl_games-anymal_c_rough-playing-video-episode-0.mp4" width="640" height="480" controls></video>
-
-Example recording of model playback using the `Isaac-Velocity-Rough-Anymal-C-v0` task
-
 ### Livestream
 You can also stream the UI to an external client using the `--livestream` flag. The easiest way to do this is through the native Omniverse Streaming Client, but this is only supported on Windows and Linux ([see this tutorial for installing the launcher](https://docs.omniverse.nvidia.com/launcher/latest/installing_launcher.html) and [this tutorial for setting up the streaming client](https://docs.omniverse.nvidia.com/streaming-client/latest/user-manual.html#installation-and-usage)). Alternatively, it should be possible to use WebRTC to do livestreaming ([although there are some known issues with it](https://isaac-sim.github.io/IsaacLab/source/deployment/docker.html#webrtc-streaming))
 

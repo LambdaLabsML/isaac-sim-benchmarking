@@ -154,7 +154,7 @@ To easily view the recorded video, exit the docker container and run the followi
 ```
 The logs will be added to `/isaaclab/docker/artifacts/logs/<library>/<task>/<date-time>` in the host terminal environment. The recorded videos are in the `videos` folder, and can be downloaded and viewed. If you see a `.json` file but not an `mp4`, try letting the video training or playback run longer before terminating.
 
-<video src="images/rl_games-anymal_c_rough-playing-video-episode-0.mp4" display="block" margin-left="auto" margin-right="auto" width=50% controls autoplay></video>
+<video src="images/rl_games-anymal_c_rough-playing-video-episode-0.mp4" width="640" height="480" controls></video>
 
 Example recording of model playback using the `Isaac-Velocity-Rough-Anymal-C-v0` task
 

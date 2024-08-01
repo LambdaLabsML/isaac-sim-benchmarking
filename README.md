@@ -141,7 +141,7 @@ This will add periodic mp4 videos of the model as it goes through the training p
 #### Playback
 Recording videos of training causes the simulation to spend resources on rendering and recording, thus slowing down the training. To combat this, the forked version of IsaacLab adds support for recording a video while doing playback of an SKRL, RL-Games, or RSL-RL model. Video recording is enabled on default, and can be disabled with the `--disable_video` flag. For example, to play the model we previously trained at any checkpoint, use the following (with the path being to the desired checkpoint):
 ```bash
-./isaaclab.sh -p source/standalone/workflows/skrl/play.py --task Isaac-Reach-Franka-v0 --num_envs 32 --checkpoint /PATH/TO/model.pt
+./isaaclab.sh -p source/standalone/workflows/skrl/play.py --task Isaac-Reach-Franka-v0 --num_envs 32 --headless --checkpoint /PATH/TO/model.pt
 ```
 You can again use the `--video_length` parameter to control the length of the clip.
 

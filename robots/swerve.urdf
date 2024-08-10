@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<robot name="swerve_drive">
+  
+  	<material name="grey">
+      	<color rgba="0.7 0.7 0.7 1" />
+  	</material>
+  
+  	<material name="green">
+      	<color rgba="0 0.6 0 1" />
+  	</material>
+  
+  	<material name="white">
+      	<color rgba="1 1 1 1" />
+  	</material>
+
+	<link name="base_footprint" />
+  
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.7 0.7 0.1" />
+            </geometry>
+          	<material name="green" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <box size="0.7 0.7 0.1" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="50"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.1"/>
+	    </inertial>
+  	</link>
+	
+	<link name="wheel1">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      	<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="1"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+    <link name="wheel1_axle">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertial>
+       		<mass value="0.1"/>
+       		<inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+	    </inertial>
+    </link>
+
+	<link name="wheel2">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="1"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+    <link name="wheel2_axle">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertial>
+       		<mass value="0.1"/>
+       		<inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+	    </inertial>
+    </link>
+
+	<link name="wheel3">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="1"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+    <link name="wheel3_axle">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertial>
+       		<mass value="0.1"/>
+       		<inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+	    </inertial>
+    </link>
+
+	<link name="wheel4">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="1"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+    <link name="wheel4_axle">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertial>
+       		<mass value="0.1"/>
+       		<inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+	    </inertial>
+    </link>
+
+	<joint name="base_joint" type="fixed">
+		<parent link="base_footprint" />
+		<child link="base_link" />
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel1_drive" type="continuous">
+    	<parent link="wheel1_axle" />
+        <child link="wheel1" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+    <joint name="wheel1_steer" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel1_axle" />
+        <origin xyz="0.25 0.25 0" rpy="1.57 0 0" />
+      	<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel2_drive" type="continuous">
+    	<parent link="wheel2_axle" />
+        <child link="wheel2" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+    <joint name="wheel2_steer" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel2_axle" />
+        <origin xyz="0.25 -0.25 0" rpy="1.57 0 0" />
+      	<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel3_drive" type="continuous">
+    	<parent link="wheel3_axle" />
+        <child link="wheel3" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+    <joint name="wheel3_steer" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel3_axle" />
+        <origin xyz="-0.25 0.25 0" rpy="1.57 0 0" />
+      	<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel4_drive" type="continuous">
+    	<parent link="wheel4_axle" />
+        <child link="wheel4" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+    <joint name="wheel4_steer" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel4_axle" />
+        <origin xyz="-0.25 -0.25 0" rpy="1.57 0 0" />
+      	<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+</robot>

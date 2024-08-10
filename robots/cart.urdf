@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<robot name="basic_cart">
+  
+  	<material name="grey">
+      	<color rgba="0.7 0.7 0.7 1" />
+  	</material>
+  
+  	<material name="green">
+      	<color rgba="0 0.6 0 1" />
+  	</material>
+  
+  	<material name="white">
+      	<color rgba="1 1 1 1" />
+  	</material>
+
+	<link name="base_footprint" />
+  
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.6 0.4 0.1" />
+            </geometry>
+          	<material name="green" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <box size="0.6 0.4 0.1" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="30"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.1"/>
+	    </inertial>
+  	</link>
+	
+	<link name="wheel1">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      	<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="10"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+	<link name="wheel2">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="10"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+	<link name="wheel3">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="10"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+	<link name="wheel4">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+          	<material name="grey" />
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+		<collision>
+			<geometry>
+                <cylinder radius="0.1" length="0.05" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<inertial>
+       		<mass value="10"/>
+       		<inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+	    </inertial>
+  	</link>
+
+	<joint name="base_joint" type="fixed">
+		<parent link="base_footprint" />
+		<child link="base_link" />
+		<origin xyz="0 0 0.1" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel1_joint" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel1" />
+        <origin xyz="0.25 0.23 0" rpy="1.57 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel2_joint" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel2" />
+        <origin xyz="0.25 -0.23 0" rpy="1.57 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel3_joint" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel3" />
+        <origin xyz="-0.25 0.23 0" rpy="1.57 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+
+	<joint name="wheel4_joint" type="continuous">
+    	<parent link="base_link" />
+        <child link="wheel4" />
+        <origin xyz="-0.25 -0.23 0" rpy="1.57 0 0" />
+      	<axis xyz="0 0 1" rpy="0 0 0" />
+	</joint>
+</robot>

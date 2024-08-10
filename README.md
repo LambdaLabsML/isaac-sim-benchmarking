@@ -84,7 +84,7 @@ Isaac Lab supports 4 different reinforcement learning libraries:
 - RL-Games
 - RSL-RL
 
-To train an SKRL model on the provided Isaac Cartpole task, for example, run the following:
+To train an SKRL model on the provided Isaac Cartpole task, for example, run the following inside of the container:
 ```bash
 # install python module (for skrl)
 ./isaaclab.sh -i skrl
